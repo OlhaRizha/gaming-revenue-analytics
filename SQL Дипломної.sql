@@ -46,7 +46,7 @@ user_month_flags AS (  -- 2) Віконні функції + календарн�
             THEN umr.total_revenue - LAG(umr.total_revenue) OVER (PARTITION BY umr.user_id ORDER BY umr.payment_month)
         END AS expansion_revenue,
 
-        -- Падіння: умови аналогічні, але сума менша → повертаємо ВІД’ЄМНУ дельту (як у формулі ментора)
+        -- Падіння: умови аналогічні, але сума менша → повертаємо ВІД’ЄМНУ дельту
         CASE
             WHEN LAG(umr.payment_month) OVER (PARTITION BY umr.user_id ORDER BY umr.payment_month)
                    = (umr.payment_month - INTERVAL '1 month')::date
@@ -136,4 +136,5 @@ FROM monthly_base mb
 LEFT JOIN monthly_win_agg mwa ON mb.month = mwa.month
 LEFT JOIN churn_rates     cr  ON mb.month = cr.month
 ORDER BY mb.month;
+
 
