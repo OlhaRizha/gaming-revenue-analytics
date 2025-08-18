@@ -29,7 +29,7 @@ user_month_flags AS (  -- 2) Віконні функції + календарн�
         (umr.payment_month - INTERVAL '1 month')::date AS previous_calendar_month,
         (umr.payment_month + INTERVAL '1 month')::date AS next_calendar_month,
 
-        /* ----- Рядкові метрики (на user×month), як просив ментор ----- */
+        /* ----- Рядкові метрики (на user×month) ----- */
 
         -- Перша оплата юзера → "новий" MRR у цей місяць
         CASE
@@ -136,3 +136,4 @@ FROM monthly_base mb
 LEFT JOIN monthly_win_agg mwa ON mb.month = mwa.month
 LEFT JOIN churn_rates     cr  ON mb.month = cr.month
 ORDER BY mb.month;
+
